@@ -95,6 +95,11 @@ html, body, [class*="css"] { font-family: 'Outfit', sans-serif; }
     color: white !important;
 }
 
+/* - Hide all instructional hints - */
+[data-testid$="Instructions"] {
+    display: none !important;
+}
+
 /* - Fuzzy match hint - */
 .fuzzy-match-hint {
     font-size: 0.82rem;
@@ -118,12 +123,12 @@ html, body, [class*="css"] { font-family: 'Outfit', sans-serif; }
 }
 
 /* - Radio experience - */
-.stRadio > div { gap: 6px !important; flex-wrap: wrap !important; }
+.stRadio > div { gap: 18px 10px !important; flex-wrap: wrap !important; }
 .stRadio > div > label {
     background: rgba(255,255,255,0.06) !important;
     border: 1.5px solid rgba(255,255,255,0.1) !important;
     border-radius: 10px !important;
-    padding: 6px 16px !important;
+    padding: 6px 24px !important;
     color: #cbd5e1 !important;
     font-weight: 500 !important;
     cursor: pointer !important;
@@ -172,7 +177,7 @@ html, body, [class*="css"] { font-family: 'Outfit', sans-serif; }
 /* - Skill Buttons - */
 div[data-testid="stButton"] > button[data-testid="baseButton-secondary"] {
     border-radius: 999px !important;
-    padding: 4px 16px !important;
+    padding: 8px 24px !important;
     height: auto !important;
     background: linear-gradient(135deg, rgba(99,102,241,0.1), rgba(139,92,246,0.1)) !important;
     border: 1px solid rgba(139,92,246,0.4) !important;
@@ -182,7 +187,16 @@ div[data-testid="stButton"] > button[data-testid="baseButton-secondary"] {
     width: auto !important;
     display: inline-flex !important;
     box-shadow: none !important;
-    margin-right: 8px !important;
+    margin-right: -1px !important; /* Slight negative margin to combat browser sub-pixel gaps */
+    white-space: nowrap !important;
+}
+/* Force the button container to be inline to prevent stacking */
+[data-testid="column"] [data-testid="stButton"] {
+    display: inline-block !important;
+}
+/* Eliminate the built-in Gap between columns in the skills container */
+div[data-testid="stHorizontalBlock"]:has(button[data-testid="baseButton-secondary"]) {
+    gap: 0px !important;
 }
 div[data-testid="stButton"] > button[data-testid="baseButton-secondary"]:hover {
     background: rgba(255,255,255,0.1) !important;
@@ -429,9 +443,10 @@ with tab1:
 
         if st.session_state.skills:
             st.markdown("<div style='height: 8px'></div>", unsafe_allow_html=True)
-            cols = st.columns([1]*len(st.session_state.skills) + [10 - len(st.session_state.skills)])
+            # Use 15 equal narrow columns with gap="none" simulation via CSS above
+            skill_cols = st.columns([2, 2, 2, 2, 2, 10])
             for i, skill in enumerate(st.session_state.skills):
-                with cols[i]:
+                with skill_cols[i]:
                     if st.button(f"{skill} X", key=f"del_skill_{i}", help="Click to remove"):
                         remove_skill(i)
                         st.rerun()
@@ -574,8 +589,16 @@ with tab2:
             df_companies = df_companies[df_companies["company_name"] != ""]
             
             if not df_companies.empty:
-                comp_data = df_companies.groupby("company_name")["salary_max_lpa"].max().sort_values(ascending=True).tail(10).reset_index()
-                fig_comp = px.bar(comp_data, x="company_name", y="salary_max_lpa", color="salary_max_lpa", color_continuous_scale="Purples", labels={"salary_max_lpa": "Max Salary (LPA)", "company_name": "Company"})
+                comp_data = df_companies.groupby("company_name")["salary_max_lpa"].max().sort_values(ascending=False).head(10).reset_index()
+                fig_comp = px.bar(
+                    comp_data, 
+                    x="company_name", 
+                    y="salary_max_lpa", 
+                    color="salary_max_lpa", 
+                    color_continuous_scale="Purples", 
+                    labels={"salary_max_lpa": "Max Salary (LPA)", "company_name": "Company"},
+                    category_orders={"company_name": comp_data["company_name"].tolist()}
+                )
                 fig_comp.update_layout(paper_bgcolor='rgba(0,0,0,0)', plot_bgcolor='rgba(0,0,0,0)', font_color="white", height=450, margin=dict(l=20, r=20, t=20, b=20))
                 # Keep labels straight as requested
                 fig_comp.update_xaxes(tickangle=0)
