@@ -1,41 +1,55 @@
-# Salary Predictor
+# 💼 AI Salary Estimator
 
-A simple machine learning project to predict salaries based on years of experience.
+A machine learning-powered web app that predicts salary ranges for tech roles using role, experience, location, and skills.
 
-## Project Structure
+
+
+## 🚀 Features
+
+* 📊 **Salary Prediction** using Random Forest
+* 🔍 **Fuzzy Matching** for role inputs (handles typos)
+* 🧠 **Skill-Based Adjustment** for realistic estimates
+* 📈 **Market Insights** (salary trends & growth)
+* 🎨 **Modern UI** with Streamlit + Glassmorphism
+
+---
+
+## 🛠 Tech Stack
+
+* **Frontend:** Streamlit
+* **ML:** Scikit-learn (Random Forest)
+* **Data:** Pandas, NumPy
+* **Fuzzy Logic:** TheFuzz
+* **Model Storage:** Joblib
+
+---
+
+## 📂 Structure
+
+```bash
+app.py              # Main app
+data/               # Dataset
+model/              # Model + training notebook
+utils/              # Preprocessing & fuzzy logic
+.streamlit/         # UI config
 ```
-salary-predictor
-│
-├── data
-│   └── salaries.csv         # Raw dataset
-│
-├── model
-│   ├── train_model.py       # Training script
-│   └── salary_model.pkl     # Trained weights (generated)
-│
-├── app
-│   └── app.py               # Streamlit dashboard
-│
-├── utils
-│   ├── preprocess.py        # Preprocessing helpers
-│   └── fuzzy_logic.py       # Fuzzy logic salary estimation
-│
-└── requirements.txt         # Dependencies
+
+---
+
+## ⚙️ Run Locally
+
+```bash
+git clone https://github.com/your-username/salary-estimator.git
+cd salary-estimator
+pip install -r requirements.txt
+streamlit run app.py
 ```
 
-## How to Run
+---
 
-1. **Install Dependencies**:
-   ```bash
-   pip install -r requirements.txt
-   ```
+## 📌 Notes
 
-2. **Train the Model**:
-   ```bash
-   python model/train_model.py
-   ```
+* Model file is excluded (size limit)
+* Retrain via `train_model.ipynb`
 
-3. **Launch the Dashboard**:
-   ```bash
-   streamlit run app/app.py
-   ```
+
