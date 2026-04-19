@@ -1,6 +1,14 @@
 # 💼 AI Salary Estimator
 
-A machine learning-powered web app that predicts salary ranges for tech roles using role, experience, location, and skills.
+This project provides an intelligent salary estimation system that goes beyond basic averages by combining machine learning predictions with real-world heuristics. It helps users understand their market value based on multiple factors such as role, experience, location, and skillset. The system incorporates fuzzy matching to handle imperfect inputs and applies skill-based adjustments to reflect real-world demand. In addition to predictions, the application features an interactive dashboard that visualizes market trends, salary distributions across locations and career growth patterns. This enables users to not only estimate salaries but also gain deeper insights into industry dynamics for better decision making.
+
+<br>
+<img width="800" height="400" alt="Screenshot 2026-04-19 170106" src="https://github.com/user-attachments/assets/4c00dc20-870c-4be9-b825-e4158b9e650a" />
+
+<br>
+
+<img width="800" height="400" alt="Screenshot 2026-04-19 161242" src="https://github.com/user-attachments/assets/758bbbe4-afe6-46a6-ba4b-29175d3cc688" />
+
 
 
 
@@ -12,7 +20,7 @@ A machine learning-powered web app that predicts salary ranges for tech roles us
 * 📈 **Market Insights** (salary trends & growth)
 * 🎨 **Modern UI** with Streamlit + Glassmorphism
 
----
+
 
 ## 🛠 Tech Stack
 
@@ -22,7 +30,7 @@ A machine learning-powered web app that predicts salary ranges for tech roles us
 * **Fuzzy Logic:** TheFuzz
 * **Model Storage:** Joblib
 
----
+
 
 ## 📂 Structure
 
@@ -34,7 +42,6 @@ utils/              # Preprocessing & fuzzy logic
 .streamlit/         # UI config
 ```
 
----
 
 ## ⚙️ Run Locally
 
@@ -45,7 +52,7 @@ pip install -r requirements.txt
 streamlit run app.py
 ```
 
----
+
 
 ## 📌 Notes
 
